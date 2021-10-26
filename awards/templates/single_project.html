@@ -39,7 +39,57 @@
         </div>
         <div class="col-sm-3"></div>
     </div>
-    
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6"> <form action="">
+
+            <h3>Usability</h3>
+
+            <input id="usability" type="radio" name="usability" value="1">1
+            <input id="usability" type="radio" name="usability" value="2">2
+            <input id="usability" type="radio" name="usability" value="3">3
+            <input id="usability" type="radio" name="usability" value="4">4
+            <input id="usability" type="radio" name="usability" value="5">5
+            <input id="usability" type="radio" name="usability" value="6">6
+            <input id="usability" type="radio" name="usability" value="7">7
+            <input id="usability" type="radio" name="usability" value="8">8
+            <input id="usability" type="radio" name="usability" value="9">9
+            <input id="usability" type="radio" name="usability" value="10">10 <br><br>
+
+            <h3>Design</h3>
+
+            <input id="design" type="radio" name="design" value="1">1
+            <input id="design" type="radio" name="design" value="2">2
+            <input id="design" type="radio" name="design" value="3">3
+            <input id="design" type="radio" name="design" value="4">4
+            <input id="design" type="radio" name="design" value="5">5
+            <input id="design" type="radio" name="design" value="6">6
+            <input id="design" type="radio" name="design" value="7">7
+            <input id="design" type="radio" name="design" value="8">8
+            <input id="design" type="radio" name="design" value="9">9
+            <input id="design" type="radio" name="design" value="10">10 <br><br>
+
+            <h3>Content</h3>
+
+            <input id="content" type="radio" name="content" value="1">1
+            <input id="content" type="radio" name="content" value="2">2
+            <input id="content" type="radio" name="content" value="3">3
+            <input id="content" type="radio" name="content" value="4">4
+            <input id="content" type="radio" name="content" value="5">5
+            <input id="content" type="radio" name="content" value="6">6
+            <input id="content" type="radio" name="content" value="7">7
+            <input id="content" type="radio" name="content" value="8">8
+            <input id="content" type="radio" name="content" value="9">9
+            <input id="content" type="radio" name="content" value="10">10 
+            <br><br>
+
+            <input type="submit" class="btn btn-outline-primary" value="My Rates">{% for mes in messages %}
+            <h3>{{mes}}</h3>
+            {% endfor %}
+
+        </form></div>
+        <div class="col-sm-3"></div>
+    </div>
 </div>
 
 {% endblock %}
