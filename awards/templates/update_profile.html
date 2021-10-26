@@ -1,0 +1,29 @@
+{% extends 'base.html'%} 
+
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+
+                
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Update Your Profile</h5>
+
+                  <form action="{% url 'update_profile'%}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %} {% bootstrap_form form %}
+                    <button class="btn btn-success">Update</button>
+                  </form>
+    
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}
