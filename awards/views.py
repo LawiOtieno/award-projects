@@ -54,7 +54,7 @@ def search_results(request):
         searched_projects = Award_projects.search_projects(search_term)
         message = f'{search_term}'
 
-        return render(request, 'search.html', {'message':message, 'Award_projects':searched_projects}) 
+        return render(request, 'search.html', {'message':message, 'award_projects':searched_projects}) 
 
     else:
         message = 'you have not entered anything to search'
@@ -68,15 +68,15 @@ def comment(request,id):
         if form.is_valid():
             comment = form.save(commit = False)
             comment.user = request.user
-            Award_projects = Award_projects.objects.get(id=id)
-            comment.Award_projects_id = Award_projects
+            award_projects = Award_projects.objects.get(id=id)
+            comment.award_projects_id = award_projects
             comment.save()
             return redirect('home')
 
         else:
-            Award_projects_id = id
+            award_projects_id = id
             messages.information(request, 'fill all the fields')
-            return redirect ('comment',id = Award_projects_id)
+            return redirect ('comment',id = award_projects_id)
 
     else:
         id = id
@@ -91,7 +91,7 @@ def rates(request,id):
         for rate in rates:
             if rate.user == request.user:
                 messages.info(request,'you only rate once')
-                return redirect('singleproject',id)
+                return redirect('single_project',id)
 
 
         design = request.POST.get('design')
@@ -102,17 +102,17 @@ def rates(request,id):
             project = Award_projects.objects.get(id=id)
             rate = Rates(design = design, usability = usability, content = content, my_project_id = project, user = request.user)
             rate.save()
-            return redirect('singleproject',id)
+            return redirect('single_project',id)
 
 
         else:
             messages.info(request, 'Input all fields')
-            return redirect('singleproject',id)
+            return redirect('single_project',id)
 
 
     else:
         messages.info(request,'Input all fields')
-        return redirect('singleproject',id)            
+        return redirect('single_project',id)            
 
             
 
@@ -146,7 +146,7 @@ def update_profile(request):
 
 
 @login_required(login_url='/accounts/login/')
-def single_project(request,id):
+def singl_project(request,id):
     projects = Award_projects.objects.get(id=id)
     comments = Comments.objects.filter(Award_projects_id =id)
     rates = Rates.objects.filter(Award_projects_id =id)
@@ -163,14 +163,42 @@ def single_project(request,id):
         design =round(sum(designrate)/total*100,1)
         usability =round(sum(usabilityrate)/total*100,1)
         content = round(sum(contentrate)/total*100,1)
-        return render(request,'singleproject.html',{'projects':projects, 'comments':comments, 'design':design, 'usability':usability, 'content':content}) 
+        return render(request,'single_project.html',{'projects':projects, 'comments':comments, 'design':design, 'usability':usability, 'content':content}) 
 
     else:
         design = 0
         usability = 0
         content = 0
 
-        return render(request,'singleproject.html', {'projects':projects,'comments':comments,'design':design, 'usability':usability,'content':content}) 
+        return render(request,'single_project.html', {'projects':projects,'comments':comments,'design':design, 'usability':usability,'content':content}) 
 
 
+# class ProfileList(APIView):
+#     permission_classes = (IsAdminOrReadOnly,)
+#     def get(self,request,format=None):
+#         plist = Profile.objects.all()
+#         serializers = ProfileListSerializer(plist,many=True)
+#         return Response(serializers.data) 
+
+#     def post(self, request, format=None):
+#         serializers = Award_projectsListSerializer(data=request.data)
+#         if serializers.is_valid():
+#             serializers.save()
+#             return Response(serializers.data, status=status.HTTP_201_CREATED)
+#         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)     
+
+
+# class MyprojectsList(APIView):
+#     permission_classes = (IsAdminOrReadOnly,)
+#     def get(self,request,format=None):
+#         prolist = Award_projects.objects.all()
+#         serializers = Award_projectsListSerializer(prolist,many=True)
+#         return Response(serializers.data) 
+
+#     def post(self, request, format=None):
+#         serializers = Award_projectsListSerializer(data=request.data)
+#         if serializers.is_valid():
+#             serializers.save()
+#             return Response(serializers.data, status=status.HTTP_201_CREATED)
+#         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)             
 
