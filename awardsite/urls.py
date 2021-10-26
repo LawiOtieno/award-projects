@@ -23,7 +23,7 @@ from django.contrib.auth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', include('my_awards.urls')),
+    path('', include('awards.urls')),
     path('accounts/', include('registration.backends.simple.urls')),
     path('logout/', views.LogoutView.as_view(), {"next_page": '/'}),
     url(r'^tinymce/', include('tinymce.urls')),
