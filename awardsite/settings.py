@@ -11,9 +11,23 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os,django_heroku,dj_database_url
+from decouple import config, Csv
+
+
+# Cloudinary
+import cloudinary,cloudinary.uploader,cloudinary.api
+
+# adding Cloudinary config
+cloudinary.config( 
+  cloud_name = "streetgrandmaster", 
+  api_key = "479824574182595", 
+  api_secret = "Zc9TxuhdIlEL5ipz1QDLzkyXcWY" 
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,6 +40,7 @@ SECRET_KEY = 'django-insecure-4b$f^+xnrin(_xxcq81(ev=*p=mz%+bm_fd2!93g6ygpo=zgjd
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Application definition
@@ -75,8 +90,10 @@ WSGI_APPLICATION = 'awardsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'awardsite',
+        'USER': 'access',
+        'PASSWORD':'lawioti',
     }
 }
 
@@ -105,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -118,8 +135,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# django_heroku.settings(locals())

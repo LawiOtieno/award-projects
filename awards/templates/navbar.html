@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<nav class="navbar navbar-inverse" style="background-color: antiquewhite;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Awards Site</a>
+    </div>
+
+    <!--The search form above-->
+    <div class="col-sm-6 col-md-6">
+      {% if user.is_authenticated %}
+      
+      {% else %}
+      <li>
+        <a class='btn btn-success' href="/accounts/login">Login</a>
+      </li>
+
+      {% endif %}
+    </div>
+
+      <!-- search form  -->
+      <form class="navbar-form" role="search"  action="{% url 'search_results' %}">
+
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search here..." name="#">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">Search</button>
+          </div>
+        </div>
+
+      </form>
+      <!-- search form end -->
+  </div>
+</nav>
+</body>
+</html> 
