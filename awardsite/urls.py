@@ -13,19 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
 
+from django.urls import path, include
 from django.conf.urls import url
-from django_registration.backends.one_step.views import RegistrationView
+from django.contrib import admin
 from django.contrib.auth import views
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    path('', include ('awards.urls')),
-    path('admin/', admin.site.urls),  
+    path('admin/', admin.site.urls),
+    path('', include('awards.urls')),
     
-    path('accounts/register/', RegistrationView.as_view(success_url='/'),name='django_registration_register'),
-    path('accounts/', include('django_registration.backends.one_step.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('logout/', views.LogoutView.as_view(), {"next_page": '/'}),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^api-token-auth/', obtain_auth_token)
 ]

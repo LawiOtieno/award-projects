@@ -1,47 +1,45 @@
-{%extends "django_registration/base.html"%}
-{% load bootstrap5 %}
+{%extends "registration/base.html"%}
+{% load bootstrap4 %}
 {% block content %}
+<div class="all" style="background-attachment: fixed;">
 <div class="container">
-  <div class="row">
-   
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      {% if form.errors %}
+    <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        {% if form.errors %}
         <p> Password or Username is incorrect </p>
-      {% endif %}
-      <div class="panel panel-default">
-
+        {% endif %}
+        <br><br>
+        <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="text-center">Sign In</h3>
+            <h3 class="text-center">Sign In</h3>
         </div>
         <div class="panel-body">
-
-          <action  action="/accounts/login/" method="post">
+            <form action="/accounts/login/" method="post">
             {% csrf_token %}
             {% bootstrap_form form%}
-
             <div class="form-group">
-              <input type="submit" class="btn btn-primary btn-sm" value="Login">
-
-
-              
-                <small style=" font-style: italic;">Dont have an acccount?</small> <a  href="/accounts/register/" class="btn btn-primary btn-sm">Register</a>
-              
+                <input type="submit" class="btn btn-primary btn-sm" value="Login">
             </div>
-            </action>
-
             <input type="hidden" name="next" value="{{next}}">
-
-          </form>
-
+            </form>
+            <p>You dont have an account? <a href="/accounts/register">Sign up</a></p>
         </div>
-
-      </div>
-
+        </div>
     </div>
-    
-    <div class="col-md-4"></div>
-  </div>
+    <!-- empty div -->
+    <div class="col-md-3"></div>
+    </div>
+</div>
 </div>
 
+<style>
+
+body{
+        background: url(https://i.insider.com/5bfec49248eb12058423acf7?width=750&format=jpeg&auto=webp) no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
 {% endblock %}

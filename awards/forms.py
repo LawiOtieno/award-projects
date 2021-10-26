@@ -1,19 +1,21 @@
 from django import forms
-from .models import *
+from .models import Awwards, Profile, Comments
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
-class NewProjectForm(forms.ModelForm):
+class ProjectFormNew(forms.ModelForm):
     class Meta:
-        model = Projects
-        exclude = [ 'pub_date' ]
-        widgets = {
-          'project_description': forms.Textarea(attrs={'rows':4, 'cols':10,}),
-        }
-        
-class ProfileUpdateForm(forms.ModelForm):
+        model = Awwards
+        exclude = ['user']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        exclude = ['user', 'my_project_id']
+
+class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ['user']
-        widgets = {
-          'bio': forms.Textarea(attrs={'rows':2, 'cols':10,}),
-        }

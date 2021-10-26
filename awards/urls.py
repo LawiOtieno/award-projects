@@ -1,18 +1,22 @@
-from django.urls import path,include,re_path
+from django.conf.urls import  url
+from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[
-    path('', views.home, name = 'home'),
-
-    re_path('project/(\d+)', views.get_project_by_id, name='project_results'),
-    path('new/project', views.new_project, name='new-project'),
-    path('api/projects/', views.ProjectsList.as_view()),
-    path('api/profile/', views.ProfileList.as_view()),
-    path('ratings/', include('star_ratings.urls', namespace='ratings')),
-    path('search/', views.search_projects, name='search_results'),
-    path('accounts/profile/', views.user_profiles, name='profile'),    
+    url('^$',views.home,name = 'home'),
+    path('profile/',views.profile,name ='profile'),
+    path('comment/<int:id>/',views.comment,name='comment'),
+    url(r'^search/',views.search_results,name = 'search_results'),
+    url(r'^singleproject/(\d+)',views.single_project,name='singleproject'),
+    path('rate/<int:id>/',views.rates,name='rates'),
+    path('newproject/',views.projects_new,name='newproject'),
+    path('updatetprofile/',views.update_profile,name='updateprofile'),
+    path('api/profile/',views.ProfileList.as_view()),
+    path('api/projects/',views.MyprojectsList.as_view()),
+    
+    
 ]
 
 if settings.DEBUG:
