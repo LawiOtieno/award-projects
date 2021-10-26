@@ -1,0 +1,46 @@
+{%extends "base.html"%} 
+
+{% load bootstrap5 %}
+
+
+{% block content %}
+<div  class="text-center" style=" font-weight: 900px; font-family: Geneva, Tahoma, sans-serif; color: rgb(77, 177, 19); size: inherit;">
+    <h1>Welcome to Awards</h1>
+</div>
+
+<br><br>
+
+
+<!-- Top content -->
+
+<div class="container" style="padding: 0 10rem;">
+    <center>
+        <div class="row g-4">
+                    
+                    
+        {% for pro in all_my_projects%}
+            <div class="card" style="width: 25rem;" >
+                <img src="{{pro.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{pro.title}}</h5>
+                <a href="#"></a>
+                <p class="card-text">{{pro.description}}</p>
+                <a href="{{pro.links}}" class="btn btn-primary">View Site</a><br>
+                <hr>
+                <a href="{% url 'rates' pro.id%}" class="btn btn-outline-success">Reviews</a>
+                <a href="{% url 'comment' pro.id %}" class="btn btn-outline-success" style="padding: 5px;">Comments</a>
+                <p>Posted By: <span class="text-info">{{pro.user}}</span></p>
+                </div>
+                
+            </div>
+        
+        {% endfor %} 
+             
+        </div>
+    </center>
+    
+    
+</div>
+
+
+{% endblock %}
