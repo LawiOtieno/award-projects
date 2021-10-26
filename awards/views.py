@@ -83,3 +83,35 @@ def comment(request,id):
         form = CommentForm()
         return render(request, 'comment.html',{'form':form, 'id':id})
 
+
+@login_required(login_url='/accounts/login/')
+def rates(request,id):
+    if request.method == 'POST':
+        rates = Rates.objects.filter(id = id)
+        for rate in rates:
+            if rate.user == request.user:
+                messages.info(request,'you only rate once')
+                return redirect('singleproject',id)
+
+
+        design = request.POST.get('design')
+        usability = request.POST.get('usability')
+        content = request.POST.get('content')
+
+        if design and usability and content:
+            project = Award_projects.objects.get(id=id)
+            rate = Rates(design = design, usability = usability, content = content, my_project_id = project, user = request.user)
+            rate.save()
+            return redirect('singleproject',id)
+
+
+        else:
+            messages.info(request, 'Input all fields')
+            return redirect('singleproject',id)
+
+
+    else:
+        messages.info(request,'Input all fields')
+        return redirect('singleproject',id)            
+
+            
