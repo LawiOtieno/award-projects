@@ -46,4 +46,40 @@ def projects_new(request):
     return render(request, 'new_project.html',{'form':form})
 
 
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+
+    if 'projects' in request.GET and request.GET['projects']:
+        search_term = request.GET.get('projects')
+        searched_projects = Award_projects.search_projects(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html', {'message':message, 'Award_projects':searched_projects}) 
+
+    else:
+        message = 'you have not entered anything to search'
+        return render(request, 'search.html',{'message':message})
+
+@login_required(login_url='/accounts/login/')
+def comment(request,id):
+    id=id
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.user = request.user
+            Award_projects = Award_projects.objects.get(id=id)
+            comment.Award_projects_id = Award_projects
+            comment.save()
+            return redirect('home')
+
+        else:
+            Award_projects_id = id
+            messages.information(request, 'fill all the fields')
+            return redirect ('comment',id = Award_projects_id)
+
+    else:
+        id = id
+        form = CommentForm()
+        return render(request, 'comment.html',{'form':form, 'id':id})
 
