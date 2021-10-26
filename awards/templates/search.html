@@ -1,30 +1,74 @@
-{% extends 'base.html' %} 
-
-{% load bootstrap5 %} 
+{%extends 'base.html'%} 
+{% load bootstrap5 %}
 
 {% block content %}
-<div style=padding-top:150px;></div>
 
-<div class="container">
-    <div class="row">
-        {% if projects %}
-            <h2> {{projects|length}} projects found for keyword {{message}}</h2>
-        {% else %}
-            <h2> No projects found for the keyword {{message}} </h2>
-        {% endif %}
+<div class="container-fluid" style="padding-top: 60px;">
+
+  <div class="" >
+    {% if projects %}
+    <div class="jumbotron jumbotron-fluid bg-info">
+        <div class="">
+          <h2 class="display-6 text-center font-weight-bold">Found {{ projects|length }} projects for searched term {{message}}</h2>
+        </div>
+      </div>
+    {% else %}
+    <div class="jumbotron jumbotron-fluid bg-light">
+        <div class="">
+          <h2 class="display-5 text-center font-weight-bold">Found 0 projects for the searched term {{message}}</h2>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+  <div class="container-fluid">
+    <div class="mb-2 pb-2 pl-4 pr-2 ml-4 mr-1">
+        <h4 class="display-35 font-weight-bold"> Results</h4>:
     </div>
     <div class="row">
-        {% if Award_projects %} 
-            {% for my_project in projects %}
-                <div class="col-md-6">
-                    <h1> {{my_project.title}} </h1>
-                    <a href="/single_project/{{my_project.id}}">
-                        <img width="500px" src=" {{my_project.image.url}} " alt="image"></a>
-                    <a href=" {{my_project.link}} ">{{my_project.link}}</a> 
-                    
+
+        {% for project_item in projects %}
+
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card mb-2 mt-2 ">
+                    <div class="view overlay zoom image2">
+                        {% if project_item.project_image %}
+                        <a href="/project/{{project_item.id}}">
+                            <img class="card-img-top" src="{{project_item.project_image.url}}"
+                                alt="{{ project_item.project_name }}" height="300px" width="320">
+                        </a>
+                        {% else %}
+                        <a href="/project/{{project_item.id}}">
+                            <img class="card-img-top" src=""
+                                alt="{{ project_item.project_name }}">
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body pr-2 pl-2 pr-2 mr-2">
+                        <h5 class="card-title ml-4">{{ project_item.project_title }}</h5>
+                        <div class="row ml-2">
+                            <div class="col-lg-6 dark-text">
+                                <small class="text-muted ml-2"><img src="{{ project_item.Author.profile.photo.url }}"
+                                        alt="" class="rounded-circle img-fluid mr-1" style="width: 30px;">
+                                    posted By: {{project_item.author|upper}} </small>
+                                <small> <span class="mr-1"> From {{project_item.country.name}}</span>
+                                </small> </div>
+                            <div class="col-lg-6 dark-text d-flex justify-content-end"> <small>
+                                    {{project_item.pub_date|date:"d /m/Y"}} </small></div>
+
+                        </div>
+                    </div>
                 </div>
-            {% endfor %} 
-        {% endif %}
+
+            </div>
+           </div>
+        {% endfor %}
+
     </div>
 </div>
+</div>  
+
 {% endblock %}

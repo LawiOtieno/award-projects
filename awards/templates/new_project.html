@@ -1,32 +1,54 @@
-{% extends 'base.html' %} 
+{% load bootstrap5 %}
 
-{% load bootstrap5 %} 
+{% load static %}
 
- {% block content %}
+<!DOCTYPE html>
+<html>
 
-<div class="container">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>New Project - Awwards</title>
+
+{% block styles %} 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/basereview.css' %}"> 
+    <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+  {% endblock %}
+</head>
+
+<body>
+  
+  <h2 class="display-5 text-center font-weight-bold">SUBMIT YOUR SITE HERE </h2>    
+    
+
   <div class="row">
+      <!-- Empty div -->
+      <div class="col-lg-3"></div>
 
-    <div class="col-sm-2"></div>
+      <div class="col-lg-6 pt-2 ">
+            <form  action="{%url 'new-project'%}" method="post" enctype="multipart/form-data">
+              {%csrf_token%}
 
-    <div class="col-sm-8">
-     
-       
-        <div class="card ">
-
-        <h3><b>Post on your Timeline</b></h3>
-
-        <div class="card-body">
-            <form action="{% url 'new_project' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %} 
-                {% bootstrap_form form %}
-                <button>Upload</button>
+              {% bootstrap_form form%}
+              <input type="submit" class="btn btn-info btn-lg font-weight-bold" value="SUBMIT">
             </form>
-        </div>
-        </div>
-        
-    </div>
-    <div class="col-sm-2"></div>
+      </div>
+
+      <div class="col-lg-3"></div>    
   </div>
-</div>
- {% endblock  %}
+
+   {% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  {% bootstrap_javascript %}
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+  {% endblock %}
+<br> <br> <br>
+</body>
+
+</html>

@@ -1,17 +1,16 @@
-{% extends "registration/base.html" %} 
+{%extends "django_registration/base.html"%} 
 
 {% load bootstrap5 %}
 
 {% block content %}
 <div class="container">
+  
   <div class="row">
-
-    <!-- Empty div -->
+    
     <div class="col-md-4"></div>
-
     <div class="col-md-4">
       {% if form.errors %}
-        <p> Some Information Might be Incorrect </p>
+        <p> System detected incorrect information </p>
       {% endif %}
       <div class="panel panel-default">
 
@@ -29,20 +28,15 @@
 
             <input type="hidden" name="next" value="{{next}}">
 
-
-
           </form>
-          <p>Have an account <a class="btn btn-success" href="/accounts/login">Login</a></p>
 
         </div>
 
       </div>
 
     </div>
-
-    <!-- empty div -->
+    
     <div class="col-md-4"></div>
-
   </div>
 </div>
 

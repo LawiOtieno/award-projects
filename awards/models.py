@@ -1,94 +1,83 @@
 from django.db import models
-
+import datetime as dt
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
+from django_countries.fields import CountryField
 from cloudinary.models import CloudinaryField
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
-
-
 class Profile(models.Model):
-    image = CloudinaryField('image')
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
-    bio = models.TextField(max_length=800)
-    info = models.TextField(max_length=1500)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    photo = CloudinaryField('profile_pics/', blank=True, default = 'v1617800735/ig9t4cd08qr3ai0zw2hl.png')
 
     def __str__(self):
-        return self.bio
-
-    def save_profile(self):
-        self.save()
-
-    def delete_profile(self):
-        self.delete() 
-
-
-
-
-class Award_projects(models.Model):
-    image = CloudinaryField('image')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=300)
-    description = models.TextField(max_length=1500)
-    links =models.URLField()
-
-    def __str__(self):
-        return self.title
-
-    def save_award_projects(self):
-        self.save()
-
-
-    @classmethod
-    def all_award_projects(cls):
-
-        all_award_projects = cls.objects.all()
-        return all_award_projects
-
-
-    @classmethod
-    def single_award_projects(cls,id):
-        single_award_projects = cls.objects.filter(id=id)
-        return single_award_projects
-
-    @classmethod
-    def user_award_projects(cls,user):
-        user_award_projects = cls.objects.filter(user=user)
-        return user_award_projects
-
-    @classmethod
-    def search_award_projects(cls,search_term):
-        searched_award_projects = cls.objects.filter(title = search_term)
-        return searched_award_projects 
-
-
-
-class Rates(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE) 
-    award_projects_id = models.ForeignKey(Award_projects, on_delete=models.CASCADE)
-    usability = models.IntegerField(default=1)
-    design = models.IntegerField(default=1)
-    content = models.IntegerField(default=1) 
+        return self.user.username
 
     
 
+    def save_profile(self):
+        self.save()                   
 
-
-class Comments(models.Model):
-    award_projects_id = models.ForeignKey(Award_projects, on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    text = models.CharField(max_length=1500)
-
-    def __str__(self):
-        return self.user
-
-
-    @classmethod
-    def get_all_comments(cls,id):
-        comments = cls.objects.filter(my_project_id = id)
-        return comments
-
-    def save_comments(self):
-        self.save()
-
-    def delete_comment(self):
+    def delete_profile(self):
         self.delete()
+    
+    
+    
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'  
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+                    Profile.objects.create(user=instance)
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+        
+class Projects(models.Model):
+    project_title = models.CharField(max_length=255)
+    project_image = CloudinaryField('images')
+    project_description = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    link = models.URLField()
+    country = CountryField(blank_label='(select country)', default='Kenya')
+        
+    def save_project(self):
+        self.save()
+    
+    def delete_project(self):
+        self.delete()
+        
+    @classmethod
+    def get_projects(cls):
+        projects = cls.objects.all()
+        return projects
+    
+    @classmethod
+    def search_projects(cls, search_term):
+        projects = cls.objects.filter(project_title__icontains=search_term)
+        return projects
+    
+    
+    @classmethod
+    def get_by_author(cls, author):
+        projects = cls.objects.filter(author=author)
+        return projects
+    
+    
+    @classmethod
+    def get_project(request, id):
+        try:
+            project = Projects.objects.get(pk = id)
+            
+        except ObjectDoesNotExist:
+            raise Http404()
+        
+        return project
+    
+    def __str__(self):
+        return self.project_title
