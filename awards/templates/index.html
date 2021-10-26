@@ -12,56 +12,9 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-    body {
-
-      font-family: "Lato", sans-serif;
-    }
-
-    .sidenav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
-    }
-
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-    }
-
-    .sidenav a:hover {
-      color: #f1f1f1;
-    }
-
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-
-    @media screen and (max-height: 450px) {
-      .sidenav {
-        padding-top: 15px;
-      }
-
-      .sidenav a {
-        font-size: 18px;
-      }
-    }
-  </style>
+  {% block styles %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  {% endblock %}
 </head>
 
 <body>
@@ -109,27 +62,26 @@
     }
   </script>
   <div class="container-fluid" style="display: inline-flex;">
-  <div style="display: inline-flex;align-items: center;padding-left: 200px" >
-    <!-- <p style="padding-top: 10%;"> -->
-      <form class="form-inline" role="search" action="{% url 'search_results' %}">
-        <input type="text" class="form-control" placeholder="" aria-label="Search" name="keyword">
-        <button type="submit" class="btn btn-outline-white btn-md my-2 btn-sm"><i class="fa fa-search" aria-hidden="true"></i>Search</button>
-        
-    </form>     
-      
-    </p>
-    <h3 style="padding-left: 300px;padding-bottom: 10rem;"><a href="{% url 'home' %}">awwards.</a></h3>
-  </div>
-  
-  <div style="display: inline-flex; float:right; text-decoration: none;margin-top: -1.7rem;padding-left: 6rem;">
+    <div style="display: inline-flex;align-items: center;padding-left: 200px" >
+      <h3 style="padding-left: 300px;padding-bottom: 10rem;"><a href="{% url 'home' %}">awwards.</a></h3>
+    </div>
     
-    <p>
-      <h6 style='padding: 1rem;'><a  href="{% url 'login' %}">LOGIN/REGISTER</a></h6>
-    </p>
-    <p style="padding-left: 10px;">
-      <h6 style="height: 4rem;background-color: aquamarine; padding: 1rem;"><a href="{% url 'new-project' %}">SUBMIT YOUR SITE</a></h6>
-    </p>
-  </div>
+    <div style="display: inline-flex; float:right; text-decoration: none;margin-top: -1.7rem;padding-left: 6rem;">
+      
+      <p>
+        <h4 class="bg-danger" style='padding: 1rem;'><a  href="{% url 'login' %}">Login</a></h4>
+      </p>
+      <p style="padding-left: 10px;">
+        <h6 style="height: 4rem;background-color: rgb(10, 66, 5); padding: 1rem;"><a href="{% url 'new-project' %}">SUBMIT YOUR SITE</a></h6>
+      </p>
+    </div>
+</div>
+<div class="text-center pt-5 pb-5">
+  <form class="form-inline" role="search" action="{% url 'search_results' %}">
+    <input type="text" class="form-control" placeholder="" aria-label="Search" name="keyword">
+    <button type="submit" class="btn btn-danger btn-md my-2 btn-sm"><i class="fa fa-search" aria-hidden="true"></i>Search</button>
+    
+  </form> 
 </div>
   <div class="row">
     {% for project_item in projects %}
