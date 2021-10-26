@@ -115,3 +115,31 @@ def rates(request,id):
         return redirect('singleproject',id)            
 
             
+
+
+@login_required(login_url='/accounts/login/')
+def logout_request(request):
+    """
+    The function logs out user
+    """                       
+
+    logout(request)
+    return redirect('home')
+
+
+
+@login_required(login_url='/accounts/login/')
+def update_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('profile')
+
+        else:
+            form = UpdateProfileForm(request.POST,request.FILES)
+            return render(request,'update_profile.html',{'form':form})
+
