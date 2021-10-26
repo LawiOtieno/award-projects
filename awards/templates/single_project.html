@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+
+{% load bootstrap5 %}
+
+<br><br><br>
+<hr>
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card">
+                <h1>{{projects.title}}</h1>
+              <img src="{{projects.image.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{projects.user}} </h5>
+                <a href="{{projects.links}}">{{projects.links}}</a>
+                <p class="card-text">{{projects.description}}</p>
+              </div>
+            </div> <br><br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="{% url 'comment' projects.id %}" class="btn btn-outline-primary">Reviews</a>
+                    <p>Reviews for {{projects.title}}</p>
+                    {% for com in comments %}
+                    <p>{{com.text}}</p>
+                    {% empty %}
+                    <p>No reviews </p>
+                    {% endfor %}
+                </div>
+                <div class="col-sm-6">
+                    <h5>ratings</h5>
+                    <p>Design: {{design}}%</p>
+                    <p>Content:{{content}}%</p>
+                    <p>Usability:{{usability}}%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    
+</div>
+
+{% endblock %}
