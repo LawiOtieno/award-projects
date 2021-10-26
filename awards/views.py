@@ -148,8 +148,8 @@ def update_profile(request):
 @login_required(login_url='/accounts/login/')
 def singl_project(request,id):
     projects = Award_projects.objects.get(id=id)
-    comments = Comments.objects.filter(Award_projects_id =id)
-    rates = Rates.objects.filter(Award_projects_id =id)
+    comments = Comments.objects.filter(award_projects_id =id)
+    rates = Rates.objects.filter(award_projects_id =id)
     designrate = []
     usabilityrate = []
     contentrate = []
