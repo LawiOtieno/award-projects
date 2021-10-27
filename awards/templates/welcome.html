@@ -11,32 +11,30 @@
 <!-- Top content -->
 
 <div class="container" style="padding: 0 10rem;">
-    <center>
-<div class="row g-4">
+
+    <div class="row g-4">
               
               
-{% for pro in all_my_projects%}
-<div class="card m-4" style="width: 20rem;" >
-    <img src="{{pro.image.url}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{pro.title}}</h5>
-      <a href="#"></a>
-      <p class="card-text">{{pro.description}}</p>
-      <a href="{{pro.links}}" class="btn btn-primary">View Site</a><br>
-      <hr>
-      <a href="{% url 'rates' pro.id%}" class="btn btn-info">Reviews</a>
-      <a href="{% url 'comment' pro.id %}" class="btn btn-info" style="padding: 5px;">Comments</a>
-      <p>Posted by: <span class="text-danger">{{pro.user}}</span></p>
-    </div>
-    
-  </div>
-  
-  {% endfor %} 
-             
+        {% for pro in all_my_projects%}
+        <div class="card m-4" style="width: 20rem;" >
+            <img src="{{pro.image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{pro.title}}</h5>
+            <a href="#"></a>
+            <p class="card-text">{{pro.description}}</p>
+            <a href="{{pro.links}}" class="btn btn-primary">View Site</a><br>
+            <hr>
+            <a href="{% url 'rates' pro.id%}" class="btn btn-info">Reviews</a>
+            <a href="{% url 'comment' pro.id %}" class="btn btn-info" style="padding: 5px;">Comments</a>
+            <p>Posted by: <span class="text-danger">{{pro.user}}</span></p>
             </div>
-        </center>
-    
-    
+            
+        </div>
+        
+        {% endfor %} 
+             
+    </div>
+
 </div>
 
 {% endblock %}
