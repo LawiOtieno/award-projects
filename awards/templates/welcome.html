@@ -4,7 +4,7 @@
 
 
 {% block content %}
-<h1 class="text-center" style=" font-weight: 1000px; font-family: Verdana, Geneva, Tahoma, sans-serif; color: darksalmon; text-shadow: dimgray; size: inherit;">Welcome to my Awards</h1>
+<h1 class="text-center text-dark">Welcome to Awards Site</h1>
 <br><br>
 
 
@@ -24,9 +24,9 @@
       <p class="card-text">{{pro.description}}</p>
       <a href="{{pro.links}}" class="btn btn-primary">View Site</a><br>
       <hr>
-      <a href="{% url 'rates' pro.id%}" class="btn btn-outline-success">Reviews</a>
-      <a href="{% url 'comment' pro.id %}" class="btn btn-outline-success" style="padding: 5px;">comment</a>
-      <p>Posted By: {{pro.user}}</p>
+      <a href="{% url 'rates' pro.id%}" class="btn btn-success">Reviews</a>
+      <a href="{% url 'comment' pro.id %}" class="btn btn-success" style="padding: 5px;">comment</a>
+      <p>Posted By: <span class="text-danger">{{pro.user}}</span></p>
     </div>
     
   </div>
@@ -38,21 +38,5 @@
     
     
 </div>
-
-
-
-<style>
-
-    .card{
-        margin: 10px;
-    }
-
-
-body{
-    background: url(https://upload.wikimedia.org/wikipedia/commons/c/c8/Altja_j%C3%B5gi_Lahemaal.jpg)no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-</style>
 
 {% endblock %}

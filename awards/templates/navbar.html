@@ -11,10 +11,10 @@
   </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse" style="background-color: antiquewhite;">
-  <div class="container-fluid">
+<nav class="navbar navbar-inverse" style="background-color: rgb(255, 255, 255);">
+  <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Awards</a>
+      <h2><a class="navbar-brand text-dark" href="/">Awards Site</a></h2>
     </div>
     <!--The search form above-->
     <div class="col-sm-6 col-md-6">
@@ -57,13 +57,13 @@
       {% endif %}
     </div>
 
-      <!-- Adding a search form  -->
+      <!-- search form  -->
       <form class="navbar-form" role="search"  action="{% url 'search_results' %}">
 
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search" name="#">
           <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">Search</button>
+            <button class="btn btn-danger" type="submit">SEARCH</button>
           </div>
         </div>
 
