@@ -3,23 +3,27 @@
 This is django website application.
 
 ## Description
+Website that showcase projects done by different users. Other users can view projects and also leave ratings on projects they like.
 
 
 ## Author(s) Info
 Lawrence Otieno is a Fullstack developer who studied coding in Moringa School, under ACCESS SPONSORSHIP.
 
 ## Support/Donate
-You can support my work in many ways, including buying me coffee 😉😊. Help me continue...
-<!-- [Buy Me Coffee ☕️](https://ko-fi.com/streetgrandmaster) -->
+You can support my work in many ways, including buying me coffee 😉😊.  
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N26PU7L)
+ <h4>Help me continue coding...</h4>
+<!-- [Buy Me Coffee ☕️](https://ko-fi.com/streetgrandmaster) -->
 
-
-## Screenshot(s)
-![profile]()
 
 
 ## Live Page
-[View Live]()
+[View Live](https://lawi-awards-site.herokuapp.com/)
+
+
+## Screenshot(s)
+![profile](https://thumbs2.imgbox.com/a0/92/02EdbIYU_t.png)
+
 
 
 ## 
@@ -52,7 +56,7 @@ Currently there no known bags.
 
 
 ## Contact Information
-For any Suppoert or Feedback, fill free to contact the me through: 
+For any Support or Feedback, fill free to contact the me through: 
 * Email at lawifirst@gmail.com 
 * Phone on *+254708581688*
 * Website visit: [LawiOtieno Github](https://github.com/LawiOtieno).
