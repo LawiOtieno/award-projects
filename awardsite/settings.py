@@ -20,9 +20,9 @@ import cloudinary,cloudinary.uploader,cloudinary.api
 
 # adding Cloudinary config
 cloudinary.config( 
-  cloud_name = "streetgrandmaster", 
-  api_key = config('CLOUDINARY_API_KEY'), 
-  api_secret = config('CLOUDINARY_API_SECRET') 
+  cloud_name = 'streetgrandmaster', 
+  api_key = '479824574182595', 
+  api_secret = 'Zc9TxuhdIlEL5ipz1QDLzkyXcWY' 
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
